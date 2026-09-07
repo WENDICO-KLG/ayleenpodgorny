@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ayleen Podgorny</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <style>
   * {
     margin: 0;
@@ -14,6 +15,7 @@
   html, body {
     width: 100%;
     height: 100%;
+    height: 100dvh;
     overflow: hidden;
   }
 
@@ -193,11 +195,97 @@
   }
 
   @media (max-width: 700px) {
-    .hero h1 { font-size: clamp(1.8rem, 10vw, 3.2rem); }
+    .hero h1 { font-size: clamp(2.6rem, 15vw, 4.5rem); }
+
+    header {
+      padding: 0.6rem 1.2rem;
+    }
+
+    .hero {
+      padding: 0 0.5rem;
+    }
+
+    .hero-content {
+      align-items: center;
+    }
+
+    .hero-image {
+      transform: none;
+      max-height: 92%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .marquee-track {
+      font-size: clamp(1.4rem, 8vw, 2.4rem);
+    }
+  }
+
+  /* --- Loader --- */
+  .loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, #7a1c2b 0%, #5c1220 60%, #4a0e19 100%);
+    transition: opacity 0.7s ease, visibility 0.7s ease;
+  }
+
+  .loader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .loader-text-wrap {
+    position: relative;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: clamp(2.4rem, 12vw, 6rem);
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  .loader-text {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .loader-text-base {
+    color: rgba(246, 236, 227, 0.18);
+  }
+
+  .loader-text-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    overflow: hidden;
+    width: 0;
+    animation: loaderFill 1.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+
+  @keyframes loaderFill {
+    from { width: 0; }
+    to   { width: 100%; }
+  }
+
+  body.is-loading {
+    overflow: hidden;
   }
 </style>
 </head>
-<body>
+<body class="is-loading">
+
+  <div class="loader" id="loader">
+    <div class="loader-text-wrap">
+      <span class="loader-text loader-text-base">AYLEEN</span>
+      <span class="loader-text loader-text-fill">AYLEEN</span>
+    </div>
+  </div>
 
   <div class="marquee-bg" id="marqueeBg"></div>
 
@@ -216,6 +304,16 @@
   </section>
 
   <script>
+    const loader = document.getElementById('loader');
+    function hideLoader() {
+      loader.classList.add('is-hidden');
+      document.body.classList.remove('is-loading');
+      loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+    }
+    window.addEventListener('load', () => {
+      setTimeout(hideLoader, 900);
+    });
+
     const noticeTexts = ['Site is under construction', 'Still in building phase'];
     let noticeIndex = 0;
     const noticeEl = document.getElementById('noticeText');
@@ -229,8 +327,8 @@
     }, 5000);
 
     const PHRASE = 'AYLEEN PODGORNY × ';
-    const ROW_COUNT = 9;
-    const REPEATS = 8;
+    const ROW_COUNT = window.innerWidth <= 700 ? 6 : 9;
+    const REPEATS = window.innerWidth <= 700 ? 5 : 8;
     const bg = document.getElementById('marqueeBg');
 
     function buildCopy() {
