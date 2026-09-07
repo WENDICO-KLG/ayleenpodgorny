@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayleen Podgorny</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #f6ece3;
+    background: linear-gradient(160deg, #7a1c2b 0%, #5c1220 60%, #4a0e19 100%);
+  }
+
+  /* --- Endless Wordmark Background --- */
+  .marquee-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .marquee-row {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    letter-spacing: 0.02em;
+    color: rgba(246, 236, 227, 0.08);
+  }
+
+  .marquee-track .copy {
+    display: inline-block;
+    padding-right: 1.5rem;
+  }
+
+  .letter {
+    display: inline-block;
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+  }
+
+  .marquee-row.left .marquee-track {
+    animation: scroll-left 110s linear infinite;
+  }
+
+  .marquee-row.right .marquee-track {
+    animation: scroll-right 110s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @keyframes scroll-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+
+  /* --- Baustellen-Hinweis --- */
+  .notice-card {
+    position: fixed;
+    z-index: 20;
+    bottom: 1.2rem;
+    right: 1.2rem;
+    max-width: 220px;
+    background: rgba(44, 10, 16, 0.85);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(246, 236, 227, 0.15);
+    border-radius: 12px;
+    color: #f6ece3;
+    font-size: 0.7rem;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    padding: 0.75rem 0.9rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  #noticeText {
+    display: inline-block;
+    transition: opacity 0.4s ease;
+  }
+
+  @media (max-width: 700px) {
+    .notice-card {
+      max-width: none;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      text-align: center;
+    }
+  }
+
+  /* --- Navigation --- */
+  header {
+    position: relative;
+    z-index: 10;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 3rem;
+  }
+
+  .logo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.3rem, 2.4vw, 2rem);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* --- Hero --- */
+  .hero {
+    position: relative;
+    z-index: 5;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero h1 {
+    position: relative;
+    z-index: 6;
+    flex: 0 0 auto;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    line-height: 1;
+    font-size: clamp(2.6rem, 9vw, 7rem);
+    letter-spacing: 0.01em;
+    margin-bottom: clamp(-2rem, -4vw, -3rem);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+  }
+
+  .hero-content {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .hero-image {
+    display: block;
+    align-self: flex-end;
+    transform: translateX(6%);
+    height: auto;
+    max-height: 100%;
+    width: auto;
+    max-width: 100%;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.35));
+  }
+
+  @media (max-width: 700px) {
+    .hero h1 { font-size: clamp(1.8rem, 10vw, 3.2rem); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="marquee-bg" id="marqueeBg"></div>
+
+  <div class="notice-card"><span id="noticeText">Site is under construction</span></div>
+
+  <header>
+    <div class="logo">AYLEEN PODGORNY</div>
+  </header>
+
+  <section class="hero">
+    <h1>HI, <em>I&rsquo;m</em> AYLEEN</h1>
+
+    <div class="hero-content">
+      <img class="hero-image" src="ayleen-noBG.png" alt="Ayleen Podgorny">
+    </div>
+  </section>
+
+  <script>
+    const noticeTexts = ['Site is under construction', 'Still in building phase'];
+    let noticeIndex = 0;
+    const noticeEl = document.getElementById('noticeText');
+    setInterval(() => {
+      noticeEl.style.opacity = 0;
+      setTimeout(() => {
+        noticeIndex = (noticeIndex + 1) % noticeTexts.length;
+        noticeEl.textContent = noticeTexts[noticeIndex];
+        noticeEl.style.opacity = 1;
+      }, 400);
+    }, 5000);
+
+    const PHRASE = 'AYLEEN PODGORNY × ';
+    const ROW_COUNT = 9;
+    const REPEATS = 8;
+    const bg = document.getElementById('marqueeBg');
+
+    function buildCopy() {
+      const copy = document.createElement('span');
+      copy.className = 'copy';
+      const text = PHRASE.repeat(REPEATS);
+      for (const ch of text) {
+        const letter = document.createElement('span');
+        letter.className = 'letter';
+        letter.textContent = ch === ' ' ? ' ' : ch;
+        copy.appendChild(letter);
+      }
+      return copy;
+    }
+
+    for (let i = 0; i < ROW_COUNT; i++) {
+      const row = document.createElement('div');
+      row.className = 'marquee-row ' + (i % 2 === 0 ? 'left' : 'right');
+      const track = document.createElement('div');
+      track.className = 'marquee-track';
+      track.appendChild(buildCopy());
+      track.appendChild(buildCopy());
+      row.appendChild(track);
+      bg.appendChild(row);
+    }
+
+    // --- Hover-Repel-Effekt: Buchstaben weichen der Maus aus ---
+    const RADIUS = 90;
+    const STRENGTH = 40;
+    let mouseX = -9999;
+    let mouseY = -9999;
+    let activeRows = new Set();
+    const allRows = () => bg.querySelectorAll('.marquee-row');
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function tick() {
+      const rows = allRows();
+      const nextActive = new Set();
+
+      rows.forEach((row, idx) => {
+        const rect = row.getBoundingClientRect();
+        const nearRow = mouseY > rect.top - RADIUS && mouseY < rect.bottom + RADIUS;
+
+        if (nearRow) {
+          nextActive.add(idx);
+          const letters = row.querySelectorAll('.letter');
+          letters.forEach((letter) => {
+            const lr = letter.getBoundingClientRect();
+            const lx = lr.left + lr.width / 2;
+            const ly = lr.top + lr.height / 2;
+            const dx = lx - mouseX;
+            const dy = ly - mouseY;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < RADIUS) {
+              const force = (1 - dist / RADIUS) * STRENGTH;
+              const angle = Math.atan2(dy, dx);
+              letter.style.transform = `translate(${Math.cos(angle) * force}px, ${Math.sin(angle) * force}px)`;
+            } else {
+              letter.style.transform = '';
+            }
+          });
+        } else if (activeRows.has(idx)) {
+          row.querySelectorAll('.letter').forEach((letter) => {
+            letter.style.transform = '';
+          });
+        }
+      });
+
+      activeRows = nextActive;
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  </script>
+
+</body>
+</html>
