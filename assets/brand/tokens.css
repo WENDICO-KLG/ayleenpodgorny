@@ -1,0 +1,47 @@
+/*
+ * Ayleen Podgorny – Brand Tokens
+ * Stil: Editorial / Personal Brand, angelehnt an assets/referenzen/design-vorlage-tiara-coaching.webp
+ * Farben übernehmen das Bordeaux der bestehenden index.html, damit Loader und neue Seite zusammenpassen.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&family=Mrs+Saint+Delafield&display=swap');
+
+:root {
+  /* Farben */
+  --color-bordeaux:       #7a1c2b; /* Primär: Buttons, Kacheln, Headlines */
+  --color-bordeaux-dark:  #5c1220; /* Hover, Footer */
+  --color-bordeaux-deep:  #4a0e19; /* Verläufe, Schatten */
+  --color-cream:          #f6ece3; /* Hauptfläche, Text auf Bordeaux */
+  --color-ivory:          #fbf6ee; /* Über-mich-Fläche (hellster Ton) */
+  --color-blush:          #e9dccf; /* Hero-Hintergrund hinter dem Freisteller */
+  --color-ink:            #2b1a17; /* Fliesstext */
+  --color-stone:          #8c8379; /* Sekundärtext, Linien */
+  --color-concrete:       #5e5a55; /* Hintergrund Werte-Sektion (mit Fototextur) */
+
+  /* Typografie */
+  --font-display: 'Instrument Serif', 'Times New Roman', serif; /* HI, I'M AYLEEN / Section-Titel, uppercase */
+  --font-script:  'Mrs Saint Delafield', cursive;               /* "Hey, ich bin Ayleen" Signatur */
+  --font-mono:    'Courier Prime', 'Courier New', monospace;    /* Fliesstext im Schreibmaschinen-Look */
+  --font-ui:      'Inter', system-ui, sans-serif;               /* Navigation, Buttons, Labels */
+
+  --fs-hero:    clamp(4rem, 12vw, 10rem);   /* line-height 0.85, letter-spacing -0.02em */
+  --fs-marquee: clamp(3.5rem, 10vw, 8rem);  /* "MEINE WERTE" Laufband */
+  --fs-h2:      clamp(2rem, 4vw, 3.25rem);
+  --fs-h3:      1.25rem;
+  --fs-body:    0.95rem;                    /* Mono läuft breit, daher etwas kleiner */
+  --fs-label:   0.7rem;                     /* Nav + Buttons, uppercase, letter-spacing 0.12em */
+
+  /* Abstände & Formen */
+  --space-xs: 0.5rem;
+  --space-s:  1rem;
+  --space-m:  2rem;
+  --space-l:  4rem;
+  --space-xl: 8rem;
+  --radius-pill: 999px;   /* Buttons */
+  --radius-card: 0;       /* Werte-Kacheln sind eckig */
+  --max-width: 1280px;
+
+  /* Effekte */
+  --shadow-polaroid: 0 10px 30px rgba(43, 26, 23, 0.18);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}

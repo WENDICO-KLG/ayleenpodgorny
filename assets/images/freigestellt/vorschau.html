@@ -1,0 +1,30 @@
+<!doctype html><html lang="de"><meta charset="utf-8"><title>Freisteller – Vorschau</title>
+<style>
+body{margin:0;font:14px/1.4 system-ui;background:#f6ece3;color:#2b1a17;padding:24px}
+h1{font-weight:500}.bar{margin-bottom:16px}button{margin-right:6px;padding:6px 12px;border-radius:999px;border:1px solid #7a1c2b;background:none;color:#7a1c2b;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+figure{margin:0}figure div{height:280px;display:flex;align-items:center;justify-content:center;border-radius:6px;
+background:var(--bg)}figure img{max-width:92%;max-height:92%}figcaption{font-size:12px;margin-top:6px;word-break:break-all}
+:root{--bg:repeating-conic-gradient(#ddd 0 25%,#fff 0 50%) 0 0/20px 20px}
+</style>
+<h1>Freisteller (transparente PNGs)</h1>
+<div class="bar">Hintergrund testen:
+<button onclick="s('repeating-conic-gradient(#ddd 0 25%,#fff 0 50%) 0 0/20px 20px')">Schachbrett</button>
+<button onclick="s('#e9dccf')">Blush</button><button onclick="s('#fbf6ee')">Ivory</button>
+<button onclick="s('#7a1c2b')">Bordeaux</button><button onclick="s('#2b1a17')">Dunkel</button></div>
+<div class="grid">
+<figure><div><img src="01-portrait/hero-studio-blush.png" alt=""></div><figcaption>01-portrait/hero-studio-blush.png</figcaption></figure>
+<figure><div><img src="01-portrait/nacht-laterne-farbig.png" alt=""></div><figcaption>01-portrait/nacht-laterne-farbig.png</figcaption></figure>
+<figure><div><img src="01-portrait/nacht-laterne-sw-lachend.png" alt=""></div><figcaption>01-portrait/nacht-laterne-sw-lachend.png</figcaption></figure>
+<figure><div><img src="01-portrait/nacht-laterne-sw.png" alt=""></div><figcaption>01-portrait/nacht-laterne-sw.png</figcaption></figure>
+<figure><div><img src="01-portrait/portrait-bambus-hoch.png" alt=""></div><figcaption>01-portrait/portrait-bambus-hoch.png</figcaption></figure>
+<figure><div><img src="01-portrait/selfie-zimmer.png" alt=""></div><figcaption>01-portrait/selfie-zimmer.png</figcaption></figure>
+<figure><div><img src="02-lifestyle/berge-fotografiert-mit-handy.png" alt=""></div><figcaption>02-lifestyle/berge-fotografiert-mit-handy.png</figcaption></figure>
+<figure><div><img src="02-lifestyle/kleiderstaender-rueckenansicht.png" alt=""></div><figcaption>02-lifestyle/kleiderstaender-rueckenansicht.png</figcaption></figure>
+<figure><div><img src="03-medien-arbeit/praesentation-am-laptop.png" alt=""></div><figcaption>03-medien-arbeit/praesentation-am-laptop.png</figcaption></figure>
+<figure><div><img src="03-medien-arbeit/social-media-workshop-vortrag-oberkoerper.png" alt=""></div><figcaption>03-medien-arbeit/social-media-workshop-vortrag-oberkoerper.png</figcaption></figure>
+<figure><div><img src="04-eiskunstlauf/medaillen-haende.png" alt=""></div><figcaption>04-eiskunstlauf/medaillen-haende.png</figcaption></figure>
+<figure><div><img src="05-grafiken/make-it-click-bordeaux.png" alt=""></div><figcaption>05-grafiken/make-it-click-bordeaux.png</figcaption></figure>
+<figure><div><img src="05-grafiken/monogramm-ap-bordeaux.png" alt=""></div><figcaption>05-grafiken/monogramm-ap-bordeaux.png</figcaption></figure>
+<figure><div><img src="05-grafiken/monogramm-ap-weiss.png" alt=""></div><figcaption>05-grafiken/monogramm-ap-weiss.png</figcaption></figure>
+</div><script>function s(v){document.documentElement.style.setProperty("--bg",v)}</script></html>

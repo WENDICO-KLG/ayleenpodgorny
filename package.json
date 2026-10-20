@@ -1,0 +1,27 @@
+{
+  "name": "ayleen-podgorny",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal-Brand-Website von Ayleen Podgorny (Next.js, statischer Export)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "npx serve out",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.27",
+    "next": "^16.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "sharp": "^0.35.5",
+    "typescript": "^5.9.0"
+  }
+}
