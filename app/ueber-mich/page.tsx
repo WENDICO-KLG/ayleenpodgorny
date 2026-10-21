@@ -59,7 +59,7 @@ export default function UeberMichPage() {
           <Facts items={[
             { value: "3", label: "Jahre alt beim ersten Mal auf dem Eis" },
             { value: "12", label: "Jahre alt bei Filmkids" },
-            { value: "2026", label: "Start der Lehre bei Swisscom", from: 2000 },
+            { value: "2026", label: "Start der Lehre bei Swisscom" },
             { value: "4–5", label: "Trainings pro Woche" },
           ]} />
         </div>

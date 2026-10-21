@@ -115,11 +115,11 @@ export default function Motion() {
       const stops: (() => void)[] = [];
       $$(".fact strong, .bar-val, [data-count]", main).forEach((el) => {
         el.dataset.orig ??= el.textContent || "";
+        if (/^\s*(19|20)\d\d\s*$/.test(el.dataset.orig)) return; // Jahreszahlen nicht hochzählen
         const m = el.dataset.orig.match(/^(\D*?)(\d+)(.*)$/s);
         if (!m) return;
         const [, pre, num, post] = m;
-        const start = Number(el.dataset.from || 0);
-        const o = { v: start };
+        const o = { v: 0 };
         let running = false;
         stops.push(() => { running = false; el.textContent = el.dataset.orig!; });
         claim(el);

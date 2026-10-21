@@ -13,8 +13,7 @@ import { LINKEDIN, SITE_DESCRIPTION, SITE_NAME, SITE_URL, WENDICO, absUrl, imgUr
 // kein Abruf beim Build/Dev nötig, keine Anfrage an Google beim Besuch.
 const serif = localFont({ src: [{ path: "./fonts/instrument-serif-400.woff2", weight: "400", style: "normal" }, { path: "./fonts/instrument-serif-400-italic.woff2", weight: "400", style: "italic" }], variable: "--nf-serif", display: "swap", fallback: ["Times New Roman", "serif"] });
 const cond = localFont({ src: "./fonts/oswald-600.woff2", weight: "600", variable: "--nf-cond", display: "swap", fallback: ["Arial Narrow", "sans-serif"] });
-const mono = localFont({ src: [{ path: "./fonts/courier-prime-400.woff2", weight: "400" }, { path: "./fonts/courier-prime-700.woff2", weight: "700" }], variable: "--nf-mono", display: "swap", fallback: ["Courier New", "monospace"] });
-const ui = localFont({ src: "./fonts/inter-variable.woff2", weight: "500 600", variable: "--nf-ui", display: "swap", fallback: ["system-ui", "sans-serif"] });
+const ui = localFont({ src: "./fonts/inter-variable.woff2", weight: "100 900", variable: "--nf-ui", display: "swap", fallback: ["system-ui", "sans-serif"] });
 const script = localFont({ src: "./fonts/mrs-saint-delafield-400.woff2", weight: "400", variable: "--nf-script", display: "swap", preload: false, fallback: ["cursive"] });
 
 export const metadata: Metadata = {
@@ -76,7 +75,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de-CH" className={`${serif.variable} ${cond.variable} ${mono.variable} ${ui.variable} ${script.variable}`} suppressHydrationWarning>
+    <html lang="de-CH" className={`${serif.variable} ${cond.variable} ${ui.variable} ${script.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('gs')" }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

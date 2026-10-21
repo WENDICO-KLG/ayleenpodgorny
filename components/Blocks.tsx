@@ -37,13 +37,13 @@ export function CtaBand({ title = "Lass uns *zusammen*arbeiten", text = "Für Sh
 }
 
 // Fakten-Leiste
-export function Facts({ items }: { items: { value: string; label: string; from?: number }[] }) {
+export function Facts({ items }: { items: { value: string; label: string }[] }) {
   return (
     <dl className="facts" style={{ ["--cols" as string]: items.length }}>
       {items.map((f, i) => (
         <R key={f.label} className="fact" delay={i * 0.06}>
           <dt className="visually-hidden">{f.label}</dt>
-          <dd style={{ margin: 0 }}><strong data-from={f.from}>{f.value}</strong><span>{f.label}</span></dd>
+          <dd style={{ margin: 0 }}><strong>{f.value}</strong><span>{f.label}</span></dd>
         </R>
       ))}
     </dl>

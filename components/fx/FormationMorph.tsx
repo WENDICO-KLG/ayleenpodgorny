@@ -1,8 +1,7 @@
 "use client";
 
 import { useGSAP } from "@gsap/react";
-import { useRef, useState } from "react";
-import { Mix } from "@/components/Type";
+import { useRef } from "react";
 import { gsap, MOTION_OK } from "@/lib/gsap";
 
 const N = 16;
@@ -31,31 +30,28 @@ const cross: P[] = Array.from({ length: N }, (_, i) => {
 });
 
 const STAGES = [
-  { name: "Kreis", text: "Alle laufen auf einer gemeinsamen Kreisbahn.", pts: circle },
-  { name: "Linie", text: "Gerade Reihen, exakt auf Abstand.", pts: line },
-  { name: "Block", text: "Ein Rechteck aus Reihen, das sich als Einheit bewegt.", pts: block },
-  { name: "Rad", text: "Speichen drehen sich um einen gemeinsamen Mittelpunkt.", pts: wheel },
-  { name: "Kreuzung", text: "Zwei Gruppen laufen durcheinander hindurch.", pts: cross },
+  { name: "Kreis", pts: circle },
+  { name: "Linie", pts: line },
+  { name: "Block", pts: block },
+  { name: "Rad", pts: wheel },
+  { name: "Kreuzung", pts: cross },
 ];
 const ME = 3; // ein hervorgehobener Punkt: "Ich"
 
-// Synchronized Skating als Scroll-Grafik: 16 Punkte formieren sich nacheinander zu
-// Kreis, Linie, Block, Rad und Kreuzung.
+// "In Formation": 16 Punkte formieren sich beim Scrollen nacheinander zu den
+// Grundelementen im Synchronized Skating (Kreis, Linie, Block, Rad, Kreuzung).
 export default function FormationMorph() {
   const root = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
 
   useGSAP(() => {
     const mm = gsap.matchMedia();
     mm.add(MOTION_OK, () => {
       const q = gsap.utils.selector(root);
       const dots = q(".f-dot") as Element[];
-      const total = (STAGES.length - 1) + 0.4;
       const tl = gsap.timeline({
         defaults: { ease: "power2.inOut" },
         scrollTrigger: {
           trigger: root.current, start: "top top", end: "bottom bottom", scrub: 0.8,
-          onUpdate: (self) => setActive(Math.min(STAGES.length - 1, Math.floor(self.progress * total + 0.3))),
         },
       });
       // Nach dem Rad ist die Gruppe um 90° gedreht: spätere Ziele werden zurückgedreht
@@ -81,23 +77,11 @@ export default function FormationMorph() {
   }, { scope: root });
 
   return (
-    <section ref={root} className="formation-scene" data-own aria-label="Synchronized Skating: die Elemente">
+    <section ref={root} className="formation-scene" data-own aria-labelledby="formation-title">
       <div className="formation-sticky">
         <div className="container formation-grid">
-          <div className="formation-text">
-            <span className="kicker">Die Elemente</span>
-            <Mix as="h2" text="Sechzehn Läuferinnen, *eine* Bewegung." className="formation-title" />
-            <ol className="formation-list">
-              {STAGES.map((s, i) => (
-                <li key={s.name} className={i === active ? "is-active" : undefined}>
-                  <span className="formation-num">0{i + 1}</span>
-                  <span className="formation-name">{s.name}</span>
-                  <span className="formation-desc">{s.text}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <svg className="formation-svg" viewBox="0 0 400 300" role="img" aria-label="16 Punkte formieren sich zu Kreis, Linie, Block, Rad und Kreuzung">
+          <h2 id="formation-title" className="mix formation-title">In <em>Formation</em></h2>
+          <svg className="formation-svg" viewBox="0 0 400 300" role="img" aria-label="16 Punkte formieren sich nacheinander zu Kreis, Linie, Block, Rad und Kreuzung">
             <circle className="f-guide" cx={C.x} cy={C.y} r="108" fill="none" stroke="currentColor" strokeOpacity=".25" strokeDasharray="3 6" />
             <g className="f-dots">
               {circle.map((p, i) => (
