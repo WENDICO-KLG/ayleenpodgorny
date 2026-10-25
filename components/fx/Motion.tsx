@@ -169,16 +169,6 @@ export default function Motion() {
         });
       });
 
-      // 10) Gestapelte Tabs: vordere Karten treten zurück
-      $$(".tabs", main).forEach((wrap) => {
-        const tabs = $$(".tab", wrap);
-        tabs.forEach((tab, i) => {
-          const next = tabs[i + 1];
-          if (!next) return;
-          gsap.to(tab, { scale: 0.95, filter: "brightness(.8)", ease: "none", scrollTrigger: { trigger: next, start: "top 65%", end: "top 20%", scrub: true } });
-        });
-      });
-
       // 11) Chips fallen wie Sticker ein, Sedcard-Zeilen und Wochenbalken nacheinander
       $$(".chips", main).filter((el) => !own(el)).forEach((list) => {
         claim(list);

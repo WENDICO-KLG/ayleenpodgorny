@@ -324,11 +324,11 @@ body.nav-open { overflow: hidden; }
 
 /* ---------- Gestapelte Tabs (Midnight) ---------- */
 .tabs { display: grid; }
-.tab { position: sticky; top: calc(var(--header-h) + 1rem + var(--i, 0) * 3rem); border-radius: 1.25rem 1.25rem 0 0; background: var(--bordeaux); color: var(--cream); box-shadow: 0 -12px 30px rgba(20, 11, 12, .22); }
+.tab { position: relative; border-radius: 1.25rem; background: var(--bordeaux); color: var(--cream); }
 .tab + .tab { margin-top: 1.5rem; }
-.tab:nth-child(2) { background: #521019; }
-.tab:nth-child(3) { background: #33090f; }
-.tab:nth-child(4) { background: var(--night); }
+@media (min-width: 850px) and (min-height: 900px) {
+  .tab { position: sticky; top: calc(var(--header-h) + 1rem + var(--i, 0) * 3.5rem); min-height: 38rem; }
+}
 .tab-head { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 1.5rem; font-family: var(--f-ui); font-size: .64rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(243, 235, 225, .75); }
 .tab-body { display: grid; gap: 2rem; padding: .5rem 1.5rem 2.5rem; align-items: center; }
 @media (min-width: 850px) { .tab-body { grid-template-columns: 1.2fr .8fr; padding: 1rem 2.5rem 3rem; } }
@@ -750,7 +750,6 @@ html:not(.gs) .film { overflow-x: auto; }
 .gs .journey-step:not(.on)::before { transform: scale(.6); background: var(--blush); }
 
 /* ---------- Tabs: Ursprung oben für das Zurücktreten ---------- */
-.tab { transform-origin: 50% 0; will-change: transform; }
 
 /* ---------- Kontakt ---------- */
 .contact-sign { margin-top: 2.5rem; font-size: clamp(3.5rem, 7vw, 5.5rem); color: var(--cream); opacity: .9; }
