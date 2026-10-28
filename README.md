@@ -1,17 +1,18 @@
 # Ayleen Podgorny – Personal-Brand-Website
 
-Next.js 16 (App Router, TypeScript) mit statischem Export. Design nach den Vorlagen «Tiara Coaching» (helles Editorial) und «Midnight Maven» (Bordeaux, Mischtitel, Cream-Panels). Weiches Scrollen mit `lenis`, Scroll-Effekte mit GSAP (ScrollTrigger, SplitText, DrawSVG). Alle Effekte respektieren `prefers-reduced-motion`; ohne JS bleibt alles sichtbar.
+Next.js 16 (App Router, TypeScript) mit serverseitigem Passwortschutz. Design nach den Vorlagen «Tiara Coaching» (helles Editorial) und «Midnight Maven» (Bordeaux, Mischtitel, Cream-Panels). Weiches Scrollen mit `lenis`, Scroll-Effekte mit GSAP (ScrollTrigger, SplitText, DrawSVG). Alle Effekte respektieren `prefers-reduced-motion`; ohne JS bleibt alles sichtbar.
 
 ## Entwickeln
 
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run build      # statischer Export nach ./out
+npm run build
+npm start          # Produktionsserver
 npm run typecheck
 ```
 
-`out/` kann auf jedem statischen Host liegen (Vercel, Netlify, GitHub Pages, Hostpoint …).
+Lege die Zugangsdaten in `.env.local` ab. Der Loginname steht in `SITE_USERNAME`, das Passwort in `SITE_PASSWORD`; die Datei wird nicht eingecheckt. Der Serverbetrieb ist erforderlich, ein statischer Export ist mit Passwortschutz nicht möglich. Für den Livebetrieb muss HTTPS aktiviert sein.
 
 ## Schriften
 
