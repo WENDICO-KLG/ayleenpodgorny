@@ -4,7 +4,7 @@ import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { useRef } from "react";
 import Img from "@/components/Img";
-import { DESKTOP, enterDelay, gsap, MOTION_OK, SplitText } from "@/lib/gsap";
+import { DESKTOP, enterDelay, gsap, MOTION_OK } from "@/lib/gsap";
 import { BRAND, HERO_SIZES, IMG } from "@/lib/site";
 
 function Star({ className }: { className?: string }) {
@@ -25,10 +25,9 @@ export default function HeroHome() {
     mm.add(MOTION_OK, () => {
       const q = gsap.utils.selector(root);
       const word = q(".hero-word-text")[0] as HTMLElement;
-      const split = SplitText.create(word, { type: "chars", mask: "chars", charsClass: "hc" });
       const tl = gsap.timeline({ delay: enterDelay() });
       tl.from(q(".hero-disc"), { scale: 0.6, opacity: 0, duration: 1.8 }, 0)
-        .from(split.chars, { yPercent: 105, duration: 1.3, stagger: 0.06, ease: "expo.out", onComplete: () => split.revert() }, 0.05)
+        .from(word, { clipPath: "inset(100% 0% 0% 0%)", y: "0.22em", duration: 1.5, ease: "expo.out", clearProps: "clipPath" }, 0.05)
         .from(q(".hero-figure-inner"), { yPercent: 14, opacity: 0, duration: 1.7, ease: "expo.out" }, 0.3)
         .from(q(".hero-brush path"), { drawSVG: 0, duration: 1.6, stagger: 0.12, ease: "power2.inOut" }, 0.45)
         .fromTo(q(".hero-script"), { "--sign": "-10%" }, { "--sign": "110%", duration: 1.8, ease: "power1.inOut" }, 0.9)
@@ -44,7 +43,6 @@ export default function HeroHome() {
       gsap.to(word, { yPercent: 28, ease: "none", scrollTrigger: st });
       gsap.to(q(".hero-figure-inner img"), { scale: 1.08, transformOrigin: "50% 100%", ease: "none", scrollTrigger: st });
       gsap.to(q(".hero-brush"), { yPercent: 12, ease: "none", scrollTrigger: st });
-      return () => split.revert();
     });
 
     // Desktop: Texte gleiten beim Scrollen weg (auf dem Handy stehen sie unter dem Bild und bleiben)

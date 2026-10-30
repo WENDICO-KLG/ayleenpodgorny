@@ -16,7 +16,7 @@ Lege die Zugangsdaten in `.env.local` ab. Der Loginname steht in `SITE_USERNAME`
 
 ## Schriften
 
-Die Schriften liegen in `app/fonts/` (lateinische Subsets von Instrument Serif, Oswald, Inter (variabel, Fliesstext), Mrs Saint Delafield; alle OFL) und werden mit `next/font/local` eingebunden. Kein Abruf bei Google nötig, weder beim Build noch beim Besuch.
+Die Schriften liegen in `app/fonts/` (lateinische Subsets von Instrument Serif, Inter (variabel, Fliesstext), Mrs Saint Delafield; alle OFL) und werden mit `next/font/local` eingebunden. Kein Abruf bei Google nötig, weder beim Build noch beim Besuch.
 
 ## Bilder
 
