@@ -27,8 +27,9 @@ export const NAV = [
 
 // Bilder: Basisnamen in public/img (Varianten -640/-1080/-1800.webp + .jpg, siehe tools/build-images.mjs)
 export const IMG = {
-  // Hero-Freisteller (echtes Foto, freigestellt)
-  hero: "hero-portrait",
+  // Hero: Foto (Hintergrund hell gegradet) und deckungsgleicher Freisteller, s. tools/hero-layers.mjs
+  hero: "hero-foto",
+  heroPerson: "hero-person",
   // Echte Fotos
   bambus: "bambus",
   nachtFarbig: "nacht-farbig",
@@ -57,7 +58,6 @@ export const IMG = {
   edKamera: "ed-kamera",
   edClose: "ed-close",
   // Textur
-  beton: "beton",
 } as const;
 export type ImgName = (typeof IMG)[keyof typeof IMG];
 
@@ -68,6 +68,9 @@ export const BRAND = {
 
 // Bildfokus (object-position), damit Gesichter bei jedem Zuschnitt sichtbar bleiben
 export const FOCUS: Partial<Record<ImgName, string>> = {
+  // beide Hero-Ebenen müssen denselben Fokus haben
+  "hero-foto": "80% 30%",
+  "hero-person": "80% 30%",
   "ed-wide": "72% 22%",
   "ed-kinn": "50% 18%",
   "ed-blazer": "55% 16%",
@@ -91,7 +94,7 @@ export const FOCUS: Partial<Record<ImgName, string>> = {
 };
 
 // Angezeigte Breite des Hero-Freistellers (für srcset und Preload)
-export const HERO_SIZES = "(max-width: 900px) 100vw, 50vw";
+export const HERO_SIZES = "100vw";
 
 export const imgUrl = (name: ImgName, w?: number) => (w ? `/img/${name}-${w}.webp` : `/img/${name}.jpg`);
 export const absUrl = (path: string) => `${SITE_URL}${path}`;

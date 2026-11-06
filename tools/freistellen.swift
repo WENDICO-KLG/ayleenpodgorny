@@ -4,6 +4,7 @@
 //   swift tools/freistellen.swift subject <bild> <ausgabe.png> [all|largest|1,2,...] [--shrink px] [--erase x,y,w,h] [--fade y0,y1]
 //   swift tools/freistellen.swift logo    <bild> <ausgabe.png>
 //   swift tools/freistellen.swift person  <bild> <ausgabe.png>
+//   swift tools/freistellen.swift person-full <bild> <ausgabe.png>   (ohne Zuschnitt, gleiche Grösse wie das Foto)
 //
 // subject: Apple Vision Foreground-Instance-Mask (wie "Motiv anheben" in Fotos),
 //          auf das Motiv zugeschnitten, mit 3 % transparentem Rand.
@@ -138,7 +139,7 @@ case "subject":
         writePNG(finalImg, to: args[3])
     } catch { fail("Maske fehlgeschlagen: \(error)") }
 
-case "person":
+case "person", "person-full":
     guard args.count >= 4 else { fail("Ausgabepfad fehlt") }
     guard let img = CIImage(contentsOf: input, options: [.applyOrientationProperty: true]) else { fail("Bild nicht lesbar") }
     print("Bild \(Int(img.extent.width))x\(Int(img.extent.height))")
@@ -160,6 +161,8 @@ case "person":
         "inputSmallImage": small, "inputSpatialSigma": 3.0, "inputLumaSigma": 0.12]).cropped(to: e)
     let cut = img.applyingFilter("CIBlendWithMask", parameters: [
         "inputBackgroundImage": CIImage(color: .clear).cropped(to: e), "inputMaskImage": mask]).cropped(to: e)
+    // person-full: volle Bildgrösse behalten (Freisteller deckungsgleich über dem Originalfoto)
+    if args[1] == "person-full" { writePNG(cut, to: args[3], padding: 0); exit(0) }
     // auf das Motiv zuschneiden
     guard let cg = ctx.createCGImage(mask, from: e) else { fail("Maske nicht renderbar") }
     let w = cg.width, h = cg.height

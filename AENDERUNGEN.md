@@ -67,7 +67,7 @@ Neue Navigation: **Start (Wortmarke) · Model · Eiskunstlauf · Portfolio · Ko
 - [ ] Hero-Bild auf der Startseite ersetzen (`assets/images/freigestellt/hero-portrait.png` → neu freistellen mit `tools/freistellen.swift person` + `tools/hero-cutout.mjs`)
 - [ ] Übrige Bilder ersetzen (Quellen in `assets/images/`, danach `node tools/build-images.mjs`)
 
-### 8. Startseite: Hero nach der Inspiration (Bild „Serina.C“)
+### 8. Startseite: Hero nach der Inspiration (Bild „Serina.C“) ✅ (mit Platzhalter-Foto)
 
 Was die Vorlage ausmacht:
 
@@ -79,12 +79,18 @@ Was die Vorlage ausmacht:
 
 To-do:
 
-- [ ] Hero neu aufbauen: Foto-Karte mit Rahmen, Name gross in Instrument Serif, Kopf vor der Schrift, Claim mit kursivem Wort, Button „Kontakt & Anfrage“, Badge mit AP-Monogramm am Rand.
-- [ ] Pinselstriche, dunkle Scheibe und Korn entfernen (`.hero-brush`, `.hero-disc`, `.hero-home::after`).
-- [ ] Ayleens Wunsch-Foto: Für den Tiefen-Effekt braucht es **ein Foto mit Hintergrund**, auf dem der Kopf im oberen Drittel ist und etwas freier Platz links für den Claim bleibt. Hochformat oder Querformat mit Platz um die Person, gute Auflösung (mind. 3000 px Breite). Bis die neuen Bilder da sind, kann ein bestehendes Foto als Platzhalter dienen.
-- [ ] Claim-Text festlegen (Vorschlag: „Vom Eis *vor* die Kamera“).
+- [x] Hero neu aufgebaut: Foto-Karte mit runden Ecken auf weinrotem Rahmen, Name «AYLEEN.P» gross in Instrument Serif, Kopf vor der Schrift, Claim «Vom Eis *vor* die Kamera», Pill-Button «Kontakt & Anfrage», Badge mit AP-Monogramm am rechten Rand.
+- [x] Pinselstriche, dunkle Scheibe, Korn, Schreibschrift und Profiltext entfernt.
+- [x] Platzhalter-Foto: Bambus-Portrait (Kamera-Original), Hintergrund hell und warm gegradet, Ayleen unverändert. Ebenen mit `tools/hero-layers.mjs`.
+- [ ] Ayleens Wunsch-Foto einsetzen, sobald es da ist: **Foto mit Hintergrund**, Kopf im oberen Drittel, links Platz für den Claim, mind. 3000 px breit. Ein heller, ruhiger Hintergrund (z. B. weisse Wand) wirkt am besten.
+
+### 9. Startseite: weitere Anpassungen ✅
+
+- [x] «Was ich mache»: Betonwand ersetzt durch hellen Cremeton.
+- [x] Polaroid «Zürich» im Intro entfernt.
+- [x] «Ausgewählte Arbeiten»: Bildstreifen ersetzt durch nummerierten Projekt-Index mit Icons (verlinkt ins Portfolio).
 
 ## Noch offen
 
-1. **Hero-Foto:** Gibt es schon ein Foto, das dem Aufbau der Vorlage entspricht (Person in Umgebung, Kopf oben, Platz links)? Sonst bauen wir mit einem bestehenden Foto als Platzhalter.
+1. **Hero-Foto:** Aktuell Platzhalter (Bambus-Portrait). Sobald Ayleens neues Foto da ist, wird es mit `tools/hero-layers.mjs` eingesetzt.
 2. **Weitere Kanäle:** Aktuell E-Mail, LinkedIn und Wendico. Soll Instagram oder ein anderer Kanal dazu?

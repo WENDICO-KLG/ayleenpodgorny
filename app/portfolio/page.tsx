@@ -89,7 +89,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* Gestapelte Projekt-Tabs (Midnight) */}
-      <section className="section bg-cream">
+      <section id="projekte" className="section bg-cream anchor">
         <div className="container">
           <div className="head"><R><span className="kicker">Projekte</span></R></div>
         </div>

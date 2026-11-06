@@ -7,16 +7,9 @@ import Img from "@/components/Img";
 import { DESKTOP, enterDelay, gsap, MOTION_OK } from "@/lib/gsap";
 import { BRAND, HERO_SIZES, IMG } from "@/lib/site";
 
-function Star({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 1.5c.5 5.6 4.9 10 10.5 10.5-5.6.5-10 4.9-10.5 10.5C11.5 16.9 7.1 12.5 1.5 12 7.1 11.5 11.5 7.1 12 1.5z" fill="currentColor" />
-    </svg>
-  );
-}
-
-// Home-Hero im Editorial-Cover-Stil: Riesen-Wortmarke "AYLEEN" in Blush auf Weinrot,
-// Ayleen (echter Freisteller) steht davor, Pinselstriche, Schreibschrift links, Profil rechts.
+// Home-Hero nach der Inspiration «Serina.C»: Foto-Karte mit runden Ecken auf weinrotem Rahmen,
+// riesiger Name oben, Ayleens Kopf steht vor den Buchstaben (Foto hinten, Name, Freisteller vorne,
+// beide Bildebenen deckungsgleich), Claim mit kursivem Wort, Pill-Button, Badge am Rand.
 export default function HeroHome() {
   const root = useRef<HTMLElement>(null);
 
@@ -24,48 +17,38 @@ export default function HeroHome() {
     const mm = gsap.matchMedia();
     mm.add(MOTION_OK, () => {
       const q = gsap.utils.selector(root);
-      const word = q(".hero-word-text")[0] as HTMLElement;
-      const tl = gsap.timeline({ delay: enterDelay() });
-      tl.from(q(".hero-disc"), { scale: 0.6, opacity: 0, duration: 1.8 }, 0)
-        .from(word, { clipPath: "inset(100% 0% 0% 0%)", y: "0.22em", duration: 1.5, ease: "expo.out", clearProps: "clipPath" }, 0.05)
-        .from(q(".hero-figure-inner"), { yPercent: 14, opacity: 0, duration: 1.7, ease: "expo.out" }, 0.3)
-        .from(q(".hero-brush path"), { drawSVG: 0, duration: 1.6, stagger: 0.12, ease: "power2.inOut" }, 0.45)
-        .fromTo(q(".hero-script"), { "--sign": "-10%" }, { "--sign": "110%", duration: 1.8, ease: "power1.inOut" }, 0.9)
-        .from(q(".hero-script-line path"), { drawSVG: 0, duration: 0.9, ease: "power2.inOut" }, 2.2)
-        .from(q(".hero-info > *"), { opacity: 0, y: 22, duration: 1, stagger: 0.09 }, 1.1)
-        .from(q(".hero-badge"), { scale: 0, rotation: -140, duration: 1.3, ease: "back.out(1.5)" }, 1.3)
-        .from(q(".hero-scroll"), { opacity: 0, duration: 0.8 }, 1.8);
+      const layers = q(".hero-layer");
+      // Intro erst starten, wenn beide Bildebenen dekodiert sind (sonst steht der Name kurz ohne Foto da)
+      const tl = gsap.timeline({ paused: true, delay: enterDelay(), defaults: { ease: "expo.out" } });
+      tl.from(q(".hero-card"), { clipPath: "inset(6% 4% 6% 4% round 2.5rem)", duration: 1.6, ease: "expo.inOut", clearProps: "clipPath" }, 0)
+        .from(layers, { scale: 1.08, duration: 2.2 }, 0)
+        .from(q(".hero-word-text"), { yPercent: 105, duration: 1.5 }, 0.55)
+        .from(q(".hero-claim-line > span"), { yPercent: 110, duration: 1.2, stagger: 0.1 }, 0.95)
+        .from(q(".hero-cta"), { opacity: 0, y: 16, duration: 1 }, 1.35)
+        .from(q(".hero-badge"), { scale: 0, rotation: -120, duration: 1.3, ease: "back.out(1.6)" }, 1.25);
+      const imgs = q(".hero-layer img") as HTMLImageElement[];
+      const ready = Promise.all(imgs.map((i) => (i.complete ? i.decode() : new Promise((r) => i.addEventListener("load", r, { once: true })).then(() => i.decode())).catch(() => {})));
+      Promise.race([ready, new Promise((r) => setTimeout(r, 2500))]).then(() => tl.play());
 
-      gsap.to(q(".hero-badge-ring"), { rotation: 360, duration: 26, ease: "none", repeat: -1 });
-
-      // Scroll: Wortmarke bleibt zurück, Ayleen kommt näher, Texte gleiten weg
+      // Scroll: Foto und Freisteller zoomen gemeinsam, der Name bleibt zurück (Tiefe)
       const st = { trigger: root.current, start: "top top", end: "bottom top", scrub: true };
-      gsap.to(word, { yPercent: 28, ease: "none", scrollTrigger: st });
-      gsap.to(q(".hero-figure-inner img"), { scale: 1.08, transformOrigin: "50% 100%", ease: "none", scrollTrigger: st });
-      gsap.to(q(".hero-brush"), { yPercent: 12, ease: "none", scrollTrigger: st });
+      gsap.to(layers, { scale: 1.1, transformOrigin: "50% 35%", ease: "none", scrollTrigger: st });
+      gsap.to(q(".hero-word"), { yPercent: 35, ease: "none", scrollTrigger: st });
     });
 
-    // Desktop: Texte gleiten beim Scrollen weg (auf dem Handy stehen sie unter dem Bild und bleiben)
+    // Desktop: Claim und Badge gleiten beim Scrollen weg
     mm.add(DESKTOP, () => {
       const q = gsap.utils.selector(root);
-      gsap.to(q(".hero-script-wrap, .hero-info, .hero-badge"), { yPercent: -40, opacity: 0, ease: "none", scrollTrigger: { trigger: root.current, start: "top top", end: "55% top", scrub: true } });
+      gsap.to(q(".hero-claim, .hero-badge"), { yPercent: -30, opacity: 0, ease: "none", scrollTrigger: { trigger: root.current, start: "top top", end: "60% top", scrub: true } });
     });
 
-    // Maus-Parallaxe in vier Ebenen (nur Desktop mit Maus)
+    // Maus-Parallaxe: nur der Name bewegt sich gegen die Bildebenen (die bleiben deckungsgleich)
     mm.add(`${DESKTOP} and (pointer: fine)`, () => {
-      const q = gsap.utils.selector(root);
-      const layers = [
-        { el: q(".hero-word")[0], k: -12 },
-        { el: q(".hero-figure-inner")[0], k: 10 },
-        { el: q(".hero-brush")[0], k: -24 },
-        { el: q(".hero-disc")[0], k: -6 },
-      ].filter((l) => l.el);
-      const movers = layers.map((l) => ({ k: l.k, x: gsap.quickTo(l.el, "x", { duration: 1.4 }), y: gsap.quickTo(l.el, "y", { duration: 1.4 }) }));
-      const onMove = (e: PointerEvent) => {
-        const nx = e.clientX / window.innerWidth - 0.5;
-        const ny = e.clientY / window.innerHeight - 0.5;
-        movers.forEach((m) => { m.x(nx * m.k); m.y(ny * m.k * 0.6); });
-      };
+      const word = root.current?.querySelector(".hero-word-text");
+      if (!word) return;
+      const x = gsap.quickTo(word, "x", { duration: 1.4 });
+      const y = gsap.quickTo(word, "y", { duration: 1.4 });
+      const onMove = (e: PointerEvent) => { x((e.clientX / window.innerWidth - 0.5) * -18); y((e.clientY / window.innerHeight - 0.5) * -8); };
       root.current?.addEventListener("pointermove", onMove);
       return () => root.current?.removeEventListener("pointermove", onMove);
     });
@@ -73,64 +56,34 @@ export default function HeroHome() {
 
   return (
     <section ref={root} className="hero-home">
-      {/* Bühne: dunkle Scheibe, Pinselstriche, Korn */}
-      <div className="hero-bg" aria-hidden="true">
-        <span className="hero-disc" />
-        <svg className="hero-brush" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <filter id="hero-dry-brush" x="-20%" y="-40%" width="140%" height="180%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.008 0.02" numOctaves="3" seed="8" result="warp" />
-              <feDisplacementMap in="SourceGraphic" in2="warp" scale="60" xChannelSelector="R" yChannelSelector="G" result="bent" />
-              <feTurbulence type="fractalNoise" baseFrequency="0.03 0.09" numOctaves="2" seed="3" result="grain" />
-              <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 1.25" result="soft" />
-              <feComposite in="bent" in2="soft" operator="in" result="dry" />
-              <feGaussianBlur in="dry" stdDeviation="5" />
-            </filter>
-          </defs>
-          <g filter="url(#hero-dry-brush)" fill="none" stroke="currentColor" strokeLinecap="round">
-            <path d="M-60 640 C 60 520, 170 430, 330 330" strokeWidth="92" opacity=".5" />
-            <path d="M-30 700 C 90 600, 200 520, 380 430" strokeWidth="44" opacity=".32" />
-            <path d="M1060 660 C 940 560, 830 480, 690 400" strokeWidth="86" opacity=".42" />
-            <path d="M1060 720 C 960 640, 860 590, 720 520" strokeWidth="36" opacity=".28" />
-          </g>
-        </svg>
-      </div>
-
-      <div className="container hero-stage">
-        <h1 className="hero-word">
-          <span className="hero-word-text">Ayleen</span>
-          <span className="visually-hidden"> Podgorny – Mediamatikerin, Head of Social Media, Eiskunstläuferin und Model aus Zürich</span>
-        </h1>
-
-        <figure className="hero-figure">
-          <div className="hero-figure-inner">
-            <Img name={IMG.hero} alt="Ayleen Podgorny lächelt, Portrait" priority sizes={HERO_SIZES} />
+      <div className="hero-frame">
+        <div className="hero-card">
+          <div className="hero-layer hero-photo">
+            <Img name={IMG.hero} alt="Ayleen Podgorny lächelt, Portrait im Freien" priority sizes={HERO_SIZES} />
           </div>
-        </figure>
 
-        <div className="hero-script-wrap">
-          <p className="hero-script">Vom Eis<br />vor die<br />Kamera.</p>
-          <svg className="hero-script-line" viewBox="0 0 220 30" aria-hidden="true"><path d="M4 22 C 60 8, 130 4, 216 14" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" /></svg>
-        </div>
+          <h1 className="hero-word">
+            <span className="hero-word-text" aria-hidden="true">Ayleen.P</span>
+            <span className="visually-hidden">Ayleen Podgorny – Mediamatikerin, Head of Social Media, Eiskunstläuferin und Model aus Zürich</span>
+          </h1>
 
-        <div className="hero-info">
-          <p className="hero-name">Ayleen Podgorny <Star className="hero-star" /></p>
-          <p className="hero-desc">
-            <Link href="/portfolio/">Mediamatikerin</Link> bei Swisscom, <Link href="/portfolio/#social-media">Head of Social Media</Link> bei Wendico,
-            Spitzensportlerin im <Link href="/leistungssport/">Eiskunstlauf</Link> und <Link href="/model/">Model</Link>.
-          </p>
-          <p className="hero-based"><span>Based in</span>Zürich, Schweiz</p>
+          <div className="hero-layer hero-person" aria-hidden="true">
+            <Img name={IMG.heroPerson} alt="" priority sizes={HERO_SIZES} />
+          </div>
+
+          <div className="hero-claim">
+            <p className="hero-claim-text">
+              <span className="hero-claim-line"><span>Vom Eis</span></span>
+              <span className="hero-claim-line"><span><em>vor</em> die</span></span>
+              <span className="hero-claim-line"><span>Kamera</span></span>
+            </p>
+            <Link href="/kontakt/" className="hero-cta">Kontakt & Anfrage</Link>
+          </div>
         </div>
 
         <div className="hero-badge" aria-hidden="true">
-          <svg className="hero-badge-ring" viewBox="0 0 100 100">
-            <defs><path id="badge-circle" d="M50 50m-39 0a39 39 0 1 1 78 0a39 39 0 1 1-78 0" /></defs>
-            <text><textPath href="#badge-circle">Mediamatik · Social Media · Eis · Model ·</textPath></text>
-          </svg>
           <img src={BRAND.monogrammWeiss} alt="" width="45" height="48" />
         </div>
-
-        <span className="hero-scroll" aria-hidden="true">Scroll</span>
       </div>
     </section>
   );

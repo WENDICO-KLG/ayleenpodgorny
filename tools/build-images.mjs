@@ -1,6 +1,6 @@
 // Erzeugt alle Website-Bilder in public/img/ als responsive WebP (640/1080/1800 px) + JPEG-Fallback.
 // Quellen: echte Originalfotos (assets/images/originale), Editorial-Shooting (assets/images/ai-png/08-editorial),
-// Hero-Freisteller (assets/images/freigestellt/hero-portrait.png, aus dem Kamera-Original freigestellt, s. tools/hero-cutout.mjs).
+// Hero-Ebenen (assets/images/freigestellt/hero-foto.jpg + hero-person.png, s. tools/hero-layers.mjs).
 // Aufruf: node tools/build-images.mjs
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -41,12 +41,14 @@ const PHOTOS = [
   [`${E}/filmkamera-bordeaux-4x5.png`, "ed-kamera"],
   [`${E}/closeup-sw-4x5.png`, "ed-close"],
   // Textur
-  ["assets/images/ai-png/07-texturen/beton-schatten-3x2.png", "beton"],
 ];
 
+// Hero-Ebenen (tools/hero-layers.mjs): Foto und Freisteller in identischer Grösse und mit denselben Breiten,
+// damit sie im Browser deckungsgleich übereinanderliegen
+const HERO_WIDTHS = [960, 1600, 2400];
+const HERO_PHOTOS = [["assets/images/freigestellt/hero-foto.jpg", "hero-foto"]];
 // Freisteller mit Transparenz (WebP mit Alpha + PNG-Fallback)
-// hero-portrait.png: aus dem Kamera-Original freigestellt und mit tools/hero-cutout.mjs bereinigt
-const CUTOUTS = [["assets/images/freigestellt/hero-portrait.png", "hero-portrait", [700, 1100, 1600]]];
+const CUTOUTS = [["assets/images/freigestellt/hero-person.png", "hero-person", HERO_WIDTHS]];
 
 await fs.rm(OUT, { recursive: true, force: true });
 await fs.mkdir(OUT, { recursive: true });
@@ -66,10 +68,18 @@ for (const [src, name, opt = {}] of PHOTOS) {
   console.log(`${name}: ${meta.width}×${meta.height} → ${widths.join("/")}`);
 }
 
+for (const [src, name] of HERO_PHOTOS) {
+  const meta = await sharp(src).metadata();
+  for (const w of HERO_WIDTHS) await sharp(src).resize({ width: w }).webp({ quality: 82 }).toFile(`${OUT}/${name}-${w}.webp`);
+  await sharp(src).resize({ width: 1600 }).jpeg({ quality: 82, mozjpeg: true, progressive: true }).toFile(`${OUT}/${name}.jpg`);
+  manifest[name] = { w: meta.width, h: meta.height, widths: HERO_WIDTHS };
+  console.log(`${name}: ${meta.width}×${meta.height} (Hero-Foto)`);
+}
+
 for (const [src, name, widths] of CUTOUTS) {
   const meta = await sharp(src).metadata();
   for (const w of widths) await sharp(src).resize({ width: w }).webp({ quality: 86, alphaQuality: 95, smartSubsample: true }).toFile(`${OUT}/${name}-${w}.webp`);
-  await sharp(src).resize({ width: 900 }).png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(`${OUT}/${name}.png`);
+  await sharp(src).resize({ width: 1600 }).png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(`${OUT}/${name}.png`);
   manifest[name] = { w: meta.width, h: meta.height, widths, alpha: true };
   console.log(`${name}: ${meta.width}×${meta.height} (Freisteller)`);
 }

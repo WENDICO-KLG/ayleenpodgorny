@@ -10,7 +10,7 @@ import type { ImgName } from "@/lib/site";
 
 export type Role = { href: string; title: string; org: string; text: string; img: ImgName; alt: string };
 
-// "Was ich mache": Kartendeck auf Betonwand (Tiara). Beim Scrollen fliegt die oberste
+// "Was ich mache": Kartendeck auf hellem Cream-Grund. Beim Scrollen fliegt die oberste
 // Karte weg und die nächste rückt nach; links zählt die Nummer mit.
 export default function RoleDeck({ roles }: { roles: Role[] }) {
   const root = useRef<HTMLElement>(null);
@@ -45,7 +45,7 @@ export default function RoleDeck({ roles }: { roles: Role[] }) {
 
   return (
     <section ref={root} className="roles" style={{ ["--n" as string]: roles.length }} aria-labelledby="roles-title" data-own>
-      <div className="roles-sticky" style={{ backgroundImage: "url(/img/beton-1080.webp)" }}>
+      <div className="roles-sticky">
         <div className="container roles-grid">
           <div className="roles-side">
             <span className="kicker">Was ich mache</span>

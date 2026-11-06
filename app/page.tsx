@@ -4,7 +4,8 @@ import { ArrowRight } from "@/components/Arrows";
 import { CtaBand } from "@/components/Blocks";
 import Img from "@/components/Img";
 import Marquee from "@/components/Marquee";
-import { Mix, R, Serif } from "@/components/Type";
+import { IconIdea, IconMic, IconPen, IconPhone } from "@/components/Icons";
+import { Mix, R, Serif, rich } from "@/components/Type";
 import HeroHome from "@/components/fx/HeroHome";
 import RoleDeck, { type Role } from "@/components/fx/RoleDeck";
 import ZoomLines from "@/components/fx/ZoomLines";
@@ -18,6 +19,14 @@ const ROLES: Role[] = [
   { href: "/model/", title: "Model", org: "Zürich", text: "Editorial, Kampagne und Content.", img: IMG.edBlazer, alt: "Editorial-Portrait von Ayleen im Blazer" },
 ];
 
+// Ausgewählte Arbeiten (Startseite): Titel mit *kursivem* Akzent, Kontext, Icon, Ziel im Portfolio
+const WORKS = [
+  { title: "Make it *Click!*", meta: "Workshop · Swisscom", Icon: IconIdea, href: "/portfolio/#projekte" },
+  { title: "Head of *Social Media*", meta: "Content · Wendico", Icon: IconPhone, href: "/portfolio/#social-media" },
+  { title: "Visitenkarte & *Logo*", meta: "Branding", Icon: IconPen, href: "/portfolio/#projekte" },
+  { title: "SRF Kids *Reporterin*", meta: "Podcasts · 2023–2024", Icon: IconMic, href: "/portfolio/#projekte" },
+];
+
 // Schwebende Editorial-Collage: Position, Breite und Scroll-Tempo je Bild
 const SCATTER: { img: ImgName; label: string; style: React.CSSProperties; speed: number }[] = [
   { img: IMG.edKinn, label: "Editorial", style: { left: "1%", top: "4%", width: "19%" }, speed: 0.08 },
@@ -28,8 +37,8 @@ const SCATTER: { img: ImgName; label: string; style: React.CSSProperties; speed:
 ];
 
 export default function HomePage() {
-  // Hero-Freisteller früh laden (LCP)
-  preload("/img/hero-portrait-1100.webp", { as: "image", fetchPriority: "high", imageSrcSet: "/img/hero-portrait-700.webp 700w, /img/hero-portrait-1100.webp 1100w, /img/hero-portrait-1600.webp 1600w", imageSizes: HERO_SIZES });
+  // Hero-Foto früh laden (LCP)
+  preload("/img/hero-foto-1600.webp", { as: "image", fetchPriority: "high", imageSrcSet: "/img/hero-foto-960.webp 960w, /img/hero-foto-1600.webp 1600w, /img/hero-foto-2400.webp 2400w", imageSizes: HERO_SIZES });
 
   return (
     <>
@@ -37,10 +46,9 @@ export default function HomePage() {
 
       <HeroHome />
 
-      {/* Intro (Tiara): Unterschrift schreibt sich, Polaroid schwebt */}
+      {/* Intro (Tiara): Unterschrift schreibt sich */}
       <section className="intro section bg-ivory">
         <div className="container">
-          <figure className="polaroid" data-speed="-0.12"><Img name={IMG.nachtSwLachend} alt="Ayleen lacht, Schwarz-Weiss" sizes="180px" /><figcaption>Zürich</figcaption></figure>
           <span className="script" data-sign>Hey, ich bin Ayleen</span>
           <Serif text="Mediamatik, Social Media, *Eis* und Kamera" />
           <div className="intro-grid">
@@ -80,22 +88,32 @@ export default function HomePage() {
         <Marquee text="Ayleen Podgorny" ghost />
       </section>
 
-      {/* Arbeiten (Midnight: Cream-Panel mit runden Ecken) */}
+      {/* Arbeiten: Cream-Panel mit nummeriertem Projekt-Index (einheitliche Icons statt Bildstreifen) */}
       <section className="panel section">
-        <div className="container work">
-          <div>
-            <span className="kicker">Ausgewählte Arbeiten</span>
-            <Mix text="Arbeiten, die *wirken*" size="xl" />
-            <R><p>Ein eigener Social-Media-Workshop vor über 20 Gästen, ein Logo aus den eigenen Initialen, Flyer und Gestaltung für Events.</p></R>
-            <R><Link href="/portfolio/" className="btn-rect">Portfolio <ArrowRight /></Link></R>
-          </div>
-          <div className="frame-wrap">
-            <div className="frame" data-speed="-0.08">
-              <div><Img name={IMG.workshop} alt="Ayleen hält ihren Social-Media-Workshop" sizes="280px" /></div>
-              <div className="contain"><Img name={IMG.makeItClick} alt="Titelgrafik «Make it Click!»" sizes="280px" /></div>
-              <div className="contain"><Img name={IMG.visitenkarte} alt="Visitenkarte mit AP-Monogramm" sizes="280px" /></div>
+        <div className="container">
+          <div className="work-head">
+            <div>
+              <span className="kicker">Ausgewählte Arbeiten</span>
+              <Mix text="Arbeiten, die *wirken*" size="xl" />
             </div>
+            <R className="work-intro">
+              <p>Ein eigener Social-Media-Workshop vor über 20 Gästen, ein Logo aus den eigenen Initialen und Podcasts für SRF Kids.</p>
+              <Link href="/portfolio/" className="btn-rect">Ganzes Portfolio <ArrowRight /></Link>
+            </R>
           </div>
+          <ol className="work-index">
+            {WORKS.map((w, i) => (
+              <R as="li" key={w.title} delay={i * 0.08}>
+                <Link href={w.href} className="work-row">
+                  <span className="work-num">0{i + 1}</span>
+                  <span className="work-title">{rich(w.title)}</span>
+                  <span className="work-meta">{w.meta}</span>
+                  <span className="work-icon" aria-hidden="true"><w.Icon /></span>
+                  <ArrowRight className="work-arrow" />
+                </Link>
+              </R>
+            ))}
+          </ol>
         </div>
       </section>
 

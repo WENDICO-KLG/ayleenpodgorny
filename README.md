@@ -21,7 +21,7 @@ Die Schriften liegen in `app/fonts/` (lateinische Subsets von Instrument Serif, 
 ## Bilder
 
 - Quellen: echte Fotos in `assets/images/originale/`, Editorial-Shooting in `assets/images/ai-png/08-editorial/` (KI-generiert)
-- Hero-Freisteller `assets/images/freigestellt/hero-portrait.png`: aus dem Kamera-Original (5184 × 3456) mit Apple Vision Personen-Segmentierung freigestellt (`tools/freistellen.swift person`, Maske kantenerhaltend hochgerechnet), danach mit `tools/hero-cutout.mjs` bereinigt (grüner Saum, Lichtsaum, Schärfe, Grading). Befehle stehen im Kopf von `hero-cutout.mjs`.
+- Hero (Startseite): zwei deckungsgleiche Ebenen aus dem Kamera-Original (5184 × 3456). `tools/freistellen.swift person-full` stellt Ayleen in voller Bildgrösse frei (Apple Vision, Maske kantenerhaltend hochgerechnet). `tools/hero-layers.mjs` erzeugt daraus `hero-foto.jpg` (Hintergrund hell, warm, leicht weich) und `hero-person.png` (Freisteller) im selben Ausschnitt. Im Browser liegt der Name zwischen den beiden Ebenen, so steht der Kopf vor den Buchstaben. Befehle stehen im Kopf von `hero-layers.mjs`. Neues Foto: dieselben Befehle mit dem neuen Bild ausführen und in `lib/site.ts` (`FOCUS`) den Bildfokus für beide Ebenen gleich setzen.
 - `node tools/build-images.mjs` erzeugt `public/img/` (WebP 640/1080/1800 + JPEG-Fallback) und `lib/images.json`
 - `components/Img.tsx` liefert `<picture>` mit `srcset`/`sizes`, Breite/Höhe (kein Layout-Springen) und Bildfokus aus `lib/site.ts` (`FOCUS`)
 
@@ -43,7 +43,7 @@ lib/site.ts           Navigation, Bildpfade, Kontakt-E-Mail, Site-URL
 public/               ausgelieferte Bilder, favicon, llms.txt
 assets/               Originale, Master, Referenzen, Brand-Tokens (nicht ausgeliefert)
 legacy/               bisherige "Coming soon"-Seite
-tools/                build-images.mjs, freistellen.swift, hero-cutout.mjs, sort-ai-downloads.sh
+tools/                build-images.mjs, freistellen.swift, hero-layers.mjs, hero-cutout.mjs (früherer Freisteller), sort-ai-downloads.sh
 ```
 
 ## Scroll-Effekte
