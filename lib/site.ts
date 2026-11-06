@@ -5,23 +5,24 @@ export const SITE_URL = "https://ayleenpodgorny.ch"; // vor dem Livegang anpasse
 export const SITE_DESCRIPTION =
   "Ayleen Podgorny aus Zürich: Mediamatikerin in Ausbildung bei Swisscom, Head of Social Media bei Wendico, Synchronized Skaterin im Team Starlight Switzerland und Model.";
 
-// Optional: persönliche E-Mail. Leer = Kontaktseite zeigt nur LinkedIn und Wendico.
-export const CONTACT_EMAIL = "";
+// Kontakt: Anfragen per E-Mail (die Seite ist statisch, daher mailto statt Formular-Backend)
+export const CONTACT_EMAIL = "ayleen@podgorny.ch";
 export const LINKEDIN = "https://www.linkedin.com/in/ayleen-podgorny-858a6b428/";
 export const WENDICO = "https://wendico.ch";
-export const WENDICO_KONTAKT = "https://wendico.ch/kontakt";
 
-export const NAV = [
-  { href: "/ueber-mich/", label: "Über mich" },
-  { href: "/social-media/", label: "Social Media" },
-  { href: "/leistungssport/", label: "Eiskunstlauf" },
-  { href: "/model/", label: "Model" },
-  { href: "/portfolio/", label: "Portfolio" },
+// Externe Seiten zu früheren Projekten (im Portfolio verlinkt)
+export const SRF_PODCASTS = [
+  { title: "Gemeinsam gegen Mobbing", text: "Mit der Sängerin Nicky B-Fly.", href: "https://www.srf.ch/kids/srf-kids-reporter-in-in-den-pausen-war-ich-ganz-allein" },
+  { title: "Philosophie-Runde", text: "Über Nächstenliebe und die grossen Fragen.", href: "https://www.srf.ch/kids/podcast-srf-kids-reporter-in-philosophie-runde-was-sagst-du-zu-den-grossen-fragen-des-lebens" },
+  { title: "So ist es, die Periode zu haben", text: "Offen und altersgerecht erklärt.", href: "https://www.srf.ch/kids/podcast-srf-kids-reporter-in-so-ist-es-die-periode-zu-haben" },
 ] as const;
+export const FILMKIDS = "https://filmkids.ch/";
 
-export const NAV_ARCHIVE = [
-  { href: "/srf-kids/", label: "SRF Kids (2023–2024)" },
-  { href: "/filmkids/", label: "Filmkids" },
+// Hauptnavigation: Start (Wortmarke) · Model · Eiskunstlauf · Portfolio · Kontakt (Button)
+export const NAV = [
+  { href: "/model/", label: "Model" },
+  { href: "/leistungssport/", label: "Eiskunstlauf" },
+  { href: "/portfolio/", label: "Portfolio" },
 ] as const;
 
 // Bilder: Basisnamen in public/img (Varianten -640/-1080/-1800.webp + .jpg, siehe tools/build-images.mjs)

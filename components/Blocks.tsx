@@ -21,16 +21,16 @@ export function PageHero({ kicker, title, img, alt, landscape = false }: { kicke
 }
 
 // Kontakt-Band (dunkel)
-export function CtaBand({ title = "Lass uns *zusammenarbeiten*", text = "Für Shootings, Social Media und Kooperationen." }: { title?: string; text?: string }) {
+export function CtaBand({ title = "Kontakt & *Anfrage*", text = "Du hast eine Frage oder eine Idee? Schreib mir." }: { title?: string; text?: string }) {
   return (
     <section className="cta-band dark dark--wine section--tight" style={{ paddingBlock: "clamp(4rem, 8vw, 6rem) clamp(7rem, 13vw, 11rem)" }}>
-      <Marquee text="Schreib mir ✦" ghost />
+      <Marquee text="Kontakt & Anfrage" ghost />
       <div className="container">
         <R>
           <Mix text={title} size="xl" />
           <p>{text}</p>
         </R>
-        <R delay={0.15}><Link href="/kontakt/" className="btn btn--light">Kontakt <ArrowRight /></Link></R>
+        <R delay={0.15}><Link href="/kontakt/" className="btn btn--light">Schreib mir <ArrowRight /></Link></R>
       </div>
     </section>
   );

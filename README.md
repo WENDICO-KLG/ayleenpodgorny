@@ -30,12 +30,14 @@ Die Schriften liegen in `app/fonts/` (lateinische Subsets von Instrument Serif, 
 ```
 app/                  Seiten (App Router), globals.css, layout.tsx (Fonts, SEO, JSON-LD)
   page.tsx            Startseite
-  ueber-mich/  portfolio/  srf-kids/  filmkids/  leistungssport/  kontakt/
+  model/  leistungssport/  portfolio/  kontakt/
+                      (Portfolio enthält auch Social Media bei Wendico, SRF Kids und Filmkids)
   sitemap.ts robots.ts
-components/           Header, Footer, Blocks (PageHero, CtaBand, Facts), Type (Mix/Serif/R), Graphics (BarChart, Wave, IceTraces), Icons, Marquee, Arrows, Img
-components/fx/        PageTransition (Bordeaux-Vorhang), SmoothScroll (Lenis + ScrollTrigger), RevealObserver,
+components/           Header, Footer, Blocks (PageHero, CtaBand, Facts), Type (Mix/Serif/R), Graphics (BarChart, IceTraces), Icons,
+                      ContactIcons (Kontaktwege als Icons), InquiryForm (Anfrage per mailto), Marquee, Arrows, Img
+components/fx/        PageTransition (Bordeaux-Vorhang), SmoothScroll (Lenis + ScrollTrigger, Anker nach Seitenwechsel), RevealObserver,
                       Motion (seitenweite Effekte über Klassen/data-Attribute, s. u.), HeroHome, RoleDeck,
-                      ZoomLines, HoverList, FormationMorph, StoryPhone, SplitReveal, ModelGallery, HorizontalGallery
+                      ZoomLines, FormationMorph, StoryPhone, SplitReveal, ModelGallery, HorizontalGallery
 lib/gsap.ts           GSAP-Plugins, Eases, enterDelay() (wartet auf den Seitenvorhang)
 lib/site.ts           Navigation, Bildpfade, Kontakt-E-Mail, Site-URL
 public/               ausgelieferte Bilder, favicon, llms.txt
@@ -49,8 +51,8 @@ tools/                build-images.mjs, freistellen.swift, hero-cutout.mjs, sort
 `components/fx/Motion.tsx` animiert automatisch:
 
 - `.mix`, `.serif-title`: Zeilen steigen aus einer Maske · `.page-hero`: Buchstaben, Bild öffnet sich, Scroll-Tiefe
-- `.photo`, `.journey-img`, `.tab-media`, `.contact-media`: Clip-Reveal + leichte Parallaxe
-- `.fact strong`, `.bar-val`: Zahlen zählen hoch · `.journey`: Linie füllt sich · `.tabs`: Karten treten zurück · `.chips`, `.sedcard`, `.week`
+- `.photo`, `.tab-media`, `.contact-media`: Clip-Reveal
+- `.fact strong`, `.bar-val`: Zahlen zählen hoch (Jahreszahlen nicht) · `.chips`, `.sedcard`, `.week`
 - `.marquee-track`: Tempo folgt der Scroll-Geschwindigkeit
 - Datenattribute: `data-speed="0.2"` (Parallaxe), `data-words` (Wort für Wort), `data-sign` (Unterschrift schreibt sich), `data-draw` (SVG zeichnet sich), `data-hscroll` (Streifen läuft seitwärts), `data-own` (Bereich animiert sich selbst)
 
@@ -60,11 +62,12 @@ Gepinnte Szenen (RoleDeck, ZoomLines, FormationMorph, StoryPhone, SplitReveal) n
 
 - Metadaten pro Seite (Title, Description, Canonical, Open Graph, Twitter Card)
 - `sitemap.xml`, `robots.txt`, `llms.txt` (für KI-Suchmaschinen)
-- JSON-LD: `WebSite` + `Person` (global), pro Seite `WebPage` + `BreadcrumbList`, dazu `ProfilePage`, `CreativeWork` (Portfolio), `PodcastEpisode` (SRF), `SportsTeam`, `ContactPage`
+- JSON-LD: `WebSite` + `Person` (global, mit E-Mail), pro Seite `WebPage` + `BreadcrumbList`, dazu `CreativeWork` und `PodcastEpisode` (Portfolio), `SportsTeam`, `ContactPage`
 - Geo-Meta-Tags (`geo.region` CH-ZH, `geo.placename` Zürich, `geo.position`)
 
 ## Vor dem Livegang
 
-- `SITE_URL` in `lib/site.ts` setzen. Optional `CONTACT_EMAIL`: Die Kontaktseite zeigt dann zusätzlich zu LinkedIn und Wendico eine E-Mail-Adresse.
+- `SITE_URL` in `lib/site.ts` setzen. Kontakt-E-Mail (`CONTACT_EMAIL`, aktuell ayleen@podgorny.ch) prüfen: Das Anfrage-Formular öffnet damit das Mailprogramm (kein Server nötig).
+- Frühere URLs `/ueber-mich/`, `/social-media/`, `/srf-kids/`, `/filmkids/` gibt es nicht mehr. Falls sie schon einmal online waren: beim Hoster auf `/` bzw. `/portfolio/` weiterleiten.
 - Offene Freigaben aus [ayleen-personal-brand-jimdo.md](ayleen-personal-brand-jimdo.md) klären (Jahreszahlen, KI-Bilder, Gruppenfotos, Swisscom-Logo auf dem Bingo).
 - Die Markdown-Dateien im Repo werden beim statischen Export nicht ausgeliefert.

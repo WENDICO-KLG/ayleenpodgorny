@@ -24,20 +24,6 @@ export function BarChart({ title, sub, data, total }: { title: string; sub: stri
   );
 }
 
-// Wellenform für Podcast-Karten (deterministisch aus einem Startwert)
-export function Wave({ seed = 1, bars = 42 }: { seed?: number; bars?: number }) {
-  let s = seed * 9301 + 49297;
-  const rnd = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
-  return (
-    <div className="wave" aria-hidden="true">
-      {Array.from({ length: bars }, (_, i) => {
-        const env = Math.sin((i / bars) * Math.PI) * 0.6 + 0.4;
-        return <i key={i} style={{ height: `${Math.max(12, Math.round(env * (0.35 + rnd() * 0.65) * 100))}%`, ["--i" as string]: i }} />;
-      })}
-    </div>
-  );
-}
-
 // Kufenspuren auf dem Eis: Wellen mit Schlaufen (Trochoide mit wechselnder Schlaufengrösse),
 // zeichnen sich beim Scrollen (data-draw).
 function trace(seed: number, w: number, h: number) {

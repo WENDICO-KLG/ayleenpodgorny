@@ -10,14 +10,6 @@ import { IMG, SITE_URL } from "@/lib/site";
 const DESC = "Ayleen Podgorny läuft Synchronized Skating im Team Starlight Switzerland, dem Schweizer Nachwuchskader von Swiss Ice Skating: 4–5 Trainings pro Woche, Schweizer- und Weltmeisterschaften.";
 export const metadata = pageMeta({ title: "Eiskunstlauf – Synchronized Skating", description: DESC, path: "/leistungssport/", image: IMG.eisJubel });
 
-const JOURNEY = [
-  { when: "Mit 3", what: "Erste Schritte auf dem Eis." },
-  { when: "Mit 4", what: "Eislaufclub Kloten." },
-  { when: "Mit 6", what: "Eislaufclub Dübendorf." },
-  { when: "Mit 12", what: "Einstieg ins Synchronized Skating." },
-  { when: "Heute", what: "Team Starlight Switzerland." },
-];
-
 export default function LeistungssportPage() {
   return (
     <>
@@ -50,24 +42,6 @@ export default function LeistungssportPage() {
 
       {/* Formationen als Scroll-Grafik */}
       <FormationMorph />
-
-      {/* Zeitstrahl */}
-      <section className="section bg-ivory">
-        <div className="container">
-          <div className="head">
-            <R><span className="kicker">Mein Weg</span></R>
-            <Mix text="Vom ersten Schritt bis zum *Kader*" />
-          </div>
-          <ol className="journey" style={{ ["--n" as string]: JOURNEY.length }}>
-            {JOURNEY.map((j, i) => (
-              <R as="li" key={j.when} className="journey-step" delay={i * 0.08}>
-                <p className="journey-when">{j.when}</p>
-                <p className="journey-what">{j.what}</p>
-              </R>
-            ))}
-          </ol>
-        </div>
-      </section>
 
       <HorizontalGallery
         kicker="Eindrücke"

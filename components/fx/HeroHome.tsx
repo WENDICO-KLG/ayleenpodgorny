@@ -116,7 +116,7 @@ export default function HeroHome() {
         <div className="hero-info">
           <p className="hero-name">Ayleen Podgorny <Star className="hero-star" /></p>
           <p className="hero-desc">
-            <Link href="/ueber-mich/">Mediamatikerin</Link> bei Swisscom, <Link href="/social-media/">Head of Social Media</Link> bei Wendico,
+            <Link href="/portfolio/">Mediamatikerin</Link> bei Swisscom, <Link href="/portfolio/#social-media">Head of Social Media</Link> bei Wendico,
             Spitzensportlerin im <Link href="/leistungssport/">Eiskunstlauf</Link> und <Link href="/model/">Model</Link>.
           </p>
           <p className="hero-based"><span>Based in</span>Zürich, Schweiz</p>

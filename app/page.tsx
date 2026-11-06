@@ -6,24 +6,16 @@ import Img from "@/components/Img";
 import Marquee from "@/components/Marquee";
 import { Mix, R, Serif } from "@/components/Type";
 import HeroHome from "@/components/fx/HeroHome";
-import HoverList, { type Offer } from "@/components/fx/HoverList";
 import RoleDeck, { type Role } from "@/components/fx/RoleDeck";
 import ZoomLines from "@/components/fx/ZoomLines";
 import { JsonLd, pageJsonLd } from "@/lib/seo";
 import { HERO_SIZES, IMG, SITE_DESCRIPTION, type ImgName } from "@/lib/site";
 
 const ROLES: Role[] = [
-  { href: "/ueber-mich/", title: "Mediamatik", org: "Swisscom · seit 2026", text: "Lehre als Mediamatikerin: Gestaltung, Kommunikation und Technik.", img: IMG.praesentation, alt: "Ayleen präsentiert am Rednerpult" },
-  { href: "/social-media/", title: "Social Media", org: "Wendico", text: "Head of Social Media: Ideen, Content und Community.", img: IMG.edKamera, alt: "Ayleen mit analoger Kamera" },
+  { href: "/portfolio/", title: "Mediamatik", org: "Swisscom · seit 2026", text: "Lehre als Mediamatikerin: Gestaltung, Kommunikation und Technik.", img: IMG.praesentation, alt: "Ayleen präsentiert am Rednerpult" },
+  { href: "/portfolio/#social-media", title: "Social Media", org: "Wendico", text: "Head of Social Media: Ideen, Content und Community.", img: IMG.edKamera, alt: "Ayleen mit analoger Kamera" },
   { href: "/leistungssport/", title: "Eiskunstlauf", org: "Team Starlight Switzerland", text: "Synchronized Skating im Schweizer Nachwuchskader.", img: IMG.eisJubel, alt: "Skaterinnen jubeln mit Medaillen" },
   { href: "/model/", title: "Model", org: "Zürich", text: "Editorial, Kampagne und Content.", img: IMG.edBlazer, alt: "Editorial-Portrait von Ayleen im Blazer" },
-];
-
-const OFFERS: Offer[] = [
-  { title: "Content *Creation*", meta: "Foto · Video · Reels", img: IMG.berge, alt: "" },
-  { title: "Social *Media*", meta: "Konzept · Redaktionsplan · Community", img: IMG.workshop, alt: "" },
-  { title: "Model *Shootings*", meta: "Editorial · Kampagne · Beauty", img: IMG.edKinn, alt: "" },
-  { title: "Workshops & *Auftritte*", meta: "Präsentation · Moderation", img: IMG.praesentation, alt: "" },
 ];
 
 // Schwebende Editorial-Collage: Position, Breite und Scroll-Tempo je Bild
@@ -58,7 +50,7 @@ export default function HomePage() {
                 <R><p className="mono-caps">Mit drei stand ich zum ersten Mal auf dem Eis. Mit zwölf vor der Kamera.</p></R>
                 <R delay={0.1}>
                   <p>Heute lerne ich Mediamatik bei Swisscom und verantworte Social Media bei Wendico. Daneben trainiere ich vier- bis fünfmal pro Woche im Schweizer Nachwuchskader.</p>
-                  <p style={{ marginTop: "1.5rem" }}><Link href="/ueber-mich/" className="btn">Mehr über mich</Link></p>
+                  <p style={{ marginTop: "1.5rem" }}><Link href="/portfolio/" className="btn">Zum Portfolio</Link></p>
                 </R>
               </div>
             </div>
@@ -109,17 +101,6 @@ export default function HomePage() {
 
       {/* Bild öffnet sich, Zeilen fahren herein */}
       <ZoomLines img={IMG.eisFormation} kicker="Vier Rollen, eine Haltung" lines={["Mediamatik.", "Social Media.", "Eiskunstlauf.", "Model."]} />
-
-      {/* Angebote (Midnight à la carte) mit Bild am Cursor */}
-      <section className="section bg-ivory">
-        <div className="container">
-          <div className="head center">
-            <R><span className="kicker">Zusammenarbeit</span></R>
-            <Mix text="Wofür du mich *anfragen* kannst" />
-          </div>
-          <HoverList items={OFFERS} />
-        </div>
-      </section>
 
       <CtaBand />
     </>

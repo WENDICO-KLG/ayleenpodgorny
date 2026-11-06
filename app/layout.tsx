@@ -7,7 +7,7 @@ import Motion from "@/components/fx/Motion";
 import PageTransition from "@/components/fx/PageTransition";
 import RevealObserver from "@/components/fx/RevealObserver";
 import SmoothScroll from "@/components/fx/SmoothScroll";
-import { LINKEDIN, SITE_DESCRIPTION, SITE_NAME, SITE_URL, WENDICO, absUrl, imgUrl } from "@/lib/site";
+import { CONTACT_EMAIL, LINKEDIN, SITE_DESCRIPTION, SITE_NAME, SITE_URL, WENDICO, absUrl, imgUrl } from "@/lib/site";
 
 // Schriften liegen im Projekt (app/fonts, lateinische Subsets aus Google Fonts, OFL):
 // kein Abruf beim Build/Dev nötig, keine Anfrage an Google beim Besuch.
@@ -67,6 +67,7 @@ const jsonLd = {
       alumniOf: [{ "@type": "Organization", name: "Filmkids" }],
       knowsAbout: ["Mediamatik", "Social Media", "Content Creation", "Fotografie", "Video", "Präsentation", "Podcast", "Synchronized Skating", "Modeln"],
       knowsLanguage: "de",
+      email: CONTACT_EMAIL,
       sameAs: [LINKEDIN],
     },
   ],

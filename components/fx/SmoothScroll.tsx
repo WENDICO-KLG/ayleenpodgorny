@@ -24,11 +24,21 @@ export default function SmoothScroll() {
     };
   }, []);
 
-  // bei Seitenwechsel nach oben
+  // bei Seitenwechsel nach oben, bzw. zum Anker (z. B. /portfolio/#social-media), sobald der Vorhang weg ist
   useEffect(() => {
     const lenis = (window as Window & { __lenis?: Lenis }).__lenis;
     if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
     else window.scrollTo(0, 0);
+    const hash = window.location.hash;
+    if (!hash) return;
+    const t = window.setTimeout(() => {
+      const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (!el) return;
+      const l = (window as Window & { __lenis?: Lenis }).__lenis;
+      if (l) l.scrollTo(el, { offset: -70, duration: 1.4 });
+      else el.scrollIntoView({ behavior: "smooth" });
+    }, 1100);
+    return () => window.clearTimeout(t);
   }, [pathname]);
 
   return null;

@@ -90,7 +90,7 @@ export default function Motion() {
       });
 
       // 3) Bilder: Clip-Reveal von unten (das Bild füllt den Rahmen immer ganz, ohne Lücken)
-      $$(".photo, .journey-img, .tab-media, .contact-media", main).filter((el) => !own(el)).forEach((fig) => {
+      $$(".photo, .tab-media:not(.tab-media--icon), .contact-media", main).filter((el) => !own(el)).forEach((fig) => {
         claim(fig);
         const img = fig.querySelector("img");
         const delay = inView(fig) ? d : 0;
@@ -150,23 +150,6 @@ export default function Motion() {
       // 8) SVG-Linien zeichnen sich
       $$("[data-draw]", main).forEach((svg) => {
         gsap.from(svg.querySelectorAll("path, line, polyline, circle.draw"), { drawSVG: 0, ease: "none", stagger: 0.08, scrollTrigger: { trigger: svg, start: "top 85%", end: svg.dataset.draw === "long" ? "bottom 20%" : "bottom 60%", scrub: 0.8 } });
-      });
-
-      // 9) Zeitstrahl: Linie füllt sich, Stationen werden aktiv
-      $$(".journey", main).forEach((j) => {
-        const steps = $$(".journey-step", j);
-        steps.forEach(claim);
-        gsap.set(steps, { opacity: 0.25 });
-        ScrollTrigger.create({
-          trigger: j, start: "top 75%", end: "bottom 55%", scrub: true,
-          onUpdate: (self) => {
-            j.style.setProperty("--p", self.progress.toFixed(3));
-            steps.forEach((s, i) => {
-              const on = self.progress >= (steps.length === 1 ? 0 : i / (steps.length - 1)) - 0.02;
-              if (on !== s.classList.contains("on")) { s.classList.toggle("on", on); gsap.to(s, { opacity: on ? 1 : 0.25, duration: 0.5 }); }
-            });
-          },
-        });
       });
 
       // 11) Chips fallen wie Sticker ein, Sedcard-Zeilen und Wochenbalken nacheinander

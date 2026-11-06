@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { BRAND, LINKEDIN, NAV, NAV_ARCHIVE, WENDICO } from "@/lib/site";
+import ContactIcons from "@/components/ContactIcons";
+import { BRAND, NAV, WENDICO } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -15,15 +16,12 @@ export default function Footer() {
             <ul>
               <li><Link href="/">Start</Link></li>
               {NAV.map((n) => <li key={n.href}><Link href={n.href}>{n.label}</Link></li>)}
-              <li><Link href="/kontakt/">Kontakt</Link></li>
+              <li><Link href="/kontakt/">Kontakt &amp; Anfrage</Link></li>
             </ul>
           </div>
           <div>
-            <h4>Mehr</h4>
-            <ul>
-              <li><a href={LINKEDIN} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-              {NAV_ARCHIVE.map((n) => <li key={n.href}><Link href={n.href}>{n.label}</Link></li>)}
-            </ul>
+            <h4>Kontakt</h4>
+            <ContactIcons variant="row" />
           </div>
         </div>
       </div>

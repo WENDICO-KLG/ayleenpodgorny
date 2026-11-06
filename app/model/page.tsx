@@ -39,7 +39,7 @@ export default function ModelPage() {
               <div><dt>Hintergrund</dt><dd>Schauspiel- und Filmausbildung bei Filmkids</dd></div>
               <div><dt>Stärken</dt><dd>Ausdruck, Haltung, Ausdauer am Set</dd></div>
             </R>
-            <R><Link href="/kontakt/" className="btn">Shooting anfragen <ArrowRight /></Link></R>
+            <R><Link href="/kontakt/" className="btn">Kontakt &amp; Anfrage <ArrowRight /></Link></R>
           </div>
           <R as="figure" className="photo photo--45" delay={0.1}><Img name={IMG.edSitzend} alt="Ayleen sitzt im Studio vor dunkelrotem Hintergrund" sizes="(max-width: 900px) 100vw, 40vw" /></R>
         </div>
@@ -59,7 +59,7 @@ export default function ModelPage() {
         </div>
       </section>
 
-      <CtaBand title="Shooting *geplant?*" text="Schreib mir mit Datum, Ort und Idee." />
+      <CtaBand />
     </>
   );
 }
